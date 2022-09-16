@@ -24,6 +24,8 @@ struct ContentView: View {
             ButtonView(timer: timer)
             
             Spacer()
+            
+            LogOutButtonView(isRegister: user)
         }
     }
 }
@@ -47,6 +49,22 @@ struct ButtonView: View {
         }
         .frame(width: 200, height: 60)
         .background(.red)
+        .cornerRadius(20)
+        .overlay(RoundedRectangle(cornerRadius: 20).stroke(.black, lineWidth: 4))
+    }
+}
+
+struct LogOutButtonView: View {
+    @ObservedObject var isRegister: UserManager
+    var body: some View {
+        Button(action: isRegister.logOut) {
+            Text("Log Out")
+                .font(.title)
+                .fontWeight(.bold)
+                .foregroundColor(.white)
+        }
+        .frame(width: 200, height: 60)
+        .background(.blue)
         .cornerRadius(20)
         .overlay(RoundedRectangle(cornerRadius: 20).stroke(.black, lineWidth: 4))
     }
