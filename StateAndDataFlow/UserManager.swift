@@ -8,12 +8,12 @@
 import Foundation
 
 class UserManager: ObservableObject {
-    @Published var isRegister = false
+    @Published var user = User()
     
-    var name = ""
- 
-    func logOut() {
-        isRegister.toggle()
+    init() {}
+    
+    init(user: User) {
+        self.user = user
+        
     }
-    
 }

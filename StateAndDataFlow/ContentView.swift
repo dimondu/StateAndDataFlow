@@ -9,11 +9,11 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var timer = TimeCounter()
-    @EnvironmentObject private var user: UserManager
+    @EnvironmentObject private var userManager: UserManager
     
     var body: some View {
         VStack {
-            Text("Hi, \(user.name)")
+            Text("Hi, \(userManager.user.name)")
                 .font(.largeTitle)
                 .padding(.top, 100)
             Text(timer.counter.formatted())
@@ -21,11 +21,15 @@ struct ContentView: View {
                 .padding(.top, 100)
             Spacer()
             
-            ButtonView(timer: timer)
+            ButtonView(title: timer.buttonTitle, color: .red) {
+                timer.startTimer()
+            }
             
             Spacer()
             
-            LogOutButtonView(isRegister: user)
+            ButtonView(title: "LogOut", color: .blue) {
+                StorageManager.shared.delete(userManager: userManager)
+            }
         }
     }
 }
@@ -37,35 +41,4 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
-struct ButtonView: View {
-    @ObservedObject var timer: TimeCounter
-    
-    var body: some View {
-        Button(action: timer.startTimer) {
-            Text(timer.buttonTitle)
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundColor(.white)
-        }
-        .frame(width: 200, height: 60)
-        .background(.red)
-        .cornerRadius(20)
-        .overlay(RoundedRectangle(cornerRadius: 20).stroke(.black, lineWidth: 4))
-    }
-}
 
-struct LogOutButtonView: View {
-    @ObservedObject var isRegister: UserManager
-    var body: some View {
-        Button(action: isRegister.logOut) {
-            Text("Log Out")
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundColor(.white)
-        }
-        .frame(width: 200, height: 60)
-        .background(.blue)
-        .cornerRadius(20)
-        .overlay(RoundedRectangle(cornerRadius: 20).stroke(.black, lineWidth: 4))
-    }
-}
