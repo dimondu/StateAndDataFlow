@@ -2,7 +2,7 @@
 //  StarterView.swift
 //  StateAndDataFlow
 //
-//  Created by Alexey Efimov on 14.09.2022.
+//  Created by Дмитрий Дуров on 16.09.2022.
 //
 
 import SwiftUI
